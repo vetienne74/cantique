@@ -1,11 +1,12 @@
 from pyqubo import Array
 import pprint
+import re
 
 # build list of numbers
-max=6
+max=8
 numbers = []
-x=0
-while (x < max) :
+x=1
+while (x <= max) :
     numbers.append(x)
     x=x+1
 pprint.pprint(numbers)
@@ -26,3 +27,19 @@ best_sample = min(decoded_samples, key=lambda x: x.energy)
 print('Solution:')
 pprint.pprint(best_sample.sample)
 
+# check results
+sum1=0
+sum2=0
+for k, v in best_sample.sample.items():
+    #print(k, v)
+    s = re.findall(r'\b\d+\b', k)
+    val = int(s[0]) + 1
+    #print(val)
+    if v==0:
+        sum1=sum1+val
+    else:
+        sum2=sum2+val
+print('sum1=', sum1)
+print('sum2=', sum2)
+
+#end
